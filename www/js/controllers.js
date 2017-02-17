@@ -1,11 +1,23 @@
 angular.module('app.controllers', [])
   
-.controller('mainCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+.controller('mainCtrl', ['$scope', '$stateParams', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
-function ($scope, $stateParams) {
-
-
+function ($scope, $stateParams, $ionicLoading) { 
+    $scope.text = "asd";   
+    $scope.show = function() {
+        $ionicLoading.show({
+        template: 'Carregando...',
+        duration: 3000
+    }).then(function(){        
+        console.log("The loading indicator is now displayed");
+        });
+    };
+    $scope.hide = function(){
+        $ionicLoading.hide().then(function(){
+        console.log("The loading indicator is now hidden");
+        })
+    }
 }])
    
 .controller('perfilCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -28,6 +40,7 @@ function ($scope, $stateParams) {
 // You can include any angular dependencies as parameters for this function
 // TIP: Access Route Parameters for your page via $stateParams.parameterName
 function ($scope, $stateParams) {
+    
 
 
 }])
