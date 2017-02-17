@@ -7,7 +7,7 @@ function ($scope, $stateParams, $ionicLoading) {
     $scope.text = "asd";   
     $scope.show = function() {
         $ionicLoading.show({
-        template: 'Carregando...',
+        template: '<ion-spinner icon="lines"></ion-spinner>',
         duration: 3000
     }).then(function(){        
         console.log("The loading indicator is now displayed");
