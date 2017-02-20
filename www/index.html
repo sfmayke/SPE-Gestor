@@ -1,107 +1,122 @@
-﻿<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+﻿    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title></title>
 
 
-ss
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
 
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
-
-
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-    <style type="text/css">
-      .platform-ios .manual-ios-statusbar-padding{
-        padding-top:20px;
-      }
-      .manual-remove-top-padding{
-        padding-top:0px;
-      }
-      .manual-remove-top-padding .scroll{
-        padding-top:0px !important;
-      }
-      ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
-        margin-left:-10px;
-        margin-right:-10px;
-      }
-      ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
-        border-radius:0px;
-        border-left:0px;
-        border-right: 0px;
-      }
-      .show-list-numbers-and-dots ul{
-        list-style-type: disc;
-        padding-left:40px;
-      }
-      .show-list-numbers-and-dots ol{
-        list-style-type: decimal;
-        padding-left:40px;
-      }
-    </style>
-
-    <script src="js/app.js"></script>
-    <script src="js/controllers.js"></script>
-    <script src="js/routes.js"></script>
+        <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+        <link href="css/ionic.app.css" rel="stylesheet">
+        -->
 
 
-    <script src="js/directives.js"></script>
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
 
-    <script src="js/services.js"></script>
+        <style type="text/css">
+          .platform-ios .manual-ios-statusbar-padding{
+            padding-top:20px;
+          }
+          .manual-remove-top-padding{
+            padding-top:0px;
+          }
+          .manual-remove-top-padding .scroll{
+            padding-top:0px !important;
+          }
+          ion-list.manual-list-fullwidth div.list, .list.card.manual-card-fullwidth {
+            margin-left:-10px;
+            margin-right:-10px;
+          }
+          ion-list.manual-list-fullwidth div.list > .item, .list.card.manual-card-fullwidth > .item {
+            border-radius:0px;
+            border-left:0px;
+            border-right: 0px;
+          }
+          .show-list-numbers-and-dots ul{
+            list-style-type: disc;
+            padding-left:40px;
+          }
+          .show-list-numbers-and-dots ol{
+            list-style-type: decimal;
+            padding-left:40px;
+          }
+        </style>
+
+          <script src="js/app.js"></script>
+          <script src="js/controllers.js"></script>
+          <script src="js/routes.js"></script>
 
 
-    <!-- Only required for Tab projects w/ pages in multiple tabs
-    <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
-    -->
+        <script src="js/directives.js"></script>
 
-  </head>
-  <body ng-app="app" animation="slide-left-right-ios7">
-  <div>
-  <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
-    <ion-side-menu-content>
-      <ion-nav-bar class="bar-assertive">
-        <ion-nav-back-button></ion-nav-back-button>
-        <ion-nav-buttons side="left">
-          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-        </ion-nav-buttons>
-      </ion-nav-bar>
-      <ion-nav-view></ion-nav-view>
-    </ion-side-menu-content>
-    <ion-side-menu side="left" id="side-menu21">
-      <ion-header-bar class="bar-assertive">
-        <div class="title">Menu TESTE UPLOAD</div>
-      </ion-header-bar>
-      <ion-content ng-controller="menuCtrl" padding="true" class="side-menu-left has-header ">
-        <div data-componentid="image1">
-          <img src="img/VUHtA6NVS0KwMtWbdnFR_logo.png" style="display: block; width: 70%; height: 70%; margin-left: auto; margin-right: auto;">
-        </div>
-        <div id="menu-markdown1" style="text-align:center;" class="show-list-numbers-and-dots" data-componentid="markdown1">
-          <p style="color:#000000;font-size:12px;">SPE-GESTOR o app que atualiza você em tempo real sobre as prestações de contas eletrônicas do TCM-PA.</p>
-        </div>
-        <ion-list id="menu-list2" data-componentid="list2">
-          <ion-item class="item-icon-left" id="menu-list-item10" ui-sref="main" menu-close="" data-componentid="list-item10">
-            <i class="icon ion-android-home"></i>Início</ion-item>
-          <ion-item class="item-icon-left" id="menu-list-item12" ui-sref="tabsController.notificacoes" menu-close="" data-componentid="list-item12">
-            <i class="icon ion-android-notifications"></i>Notificações</ion-item>
-          <ion-item class="item-icon-left" id="menu-list-item13" ui-sref="tabsController.perfil" menu-close="" data-componentid="list-item13">
-            <i class="icon ion-android-person"></i>Perfil</ion-item>
-          <ion-item class="item-icon-left" id="menu-list-item14" ui-sref="suporteAjuda" menu-close="" data-componentid="list-item14">
-            <i class="icon ion-help-circled"></i>Suporte e Ajuda</ion-item>
-          <ion-item class="item-icon-left" id="menu-list-item15" data-componentid="list-item15">
-            <i class="icon ion-power"></i>Item</ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-side-menu>
-  </ion-side-menus>
-</div>
+        <script src="js/services.js"></script>
+
+
+        <!-- Only required for Tab projects w/ pages in multiple tabs
+        <script src="lib/ionicuirouter/ionicUIRouter.js"></script>
+        -->
+
+      </head>
+      <body ng-app="app" animation="slide-left-right-ios7">
+      <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
+        <ion-side-menu-content>
+          <ion-nav-bar class="bar-assertive">
+            <ion-nav-back-button></ion-nav-back-button>
+            <ion-nav-buttons side="left">
+              <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+            </ion-nav-buttons>
+          </ion-nav-bar>
+          <ion-nav-view></ion-nav-view>
+        </ion-side-menu-content>
+        <ion-side-menu side="left" id="side-menu21">
+          <ion-header-bar class="bar-assertive">
+            <div class="title">MENU</div>
+          </ion-header-bar>
+            <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header">
+              <div class="row">
+                <div class="col col-75 col col-offset-10">
+                  <div data-componentid="image1">
+                    <img src="img/VUHtA6NVS0KwMtWbdnFR_logo.png" style="display: block; width: 70%; height: 70%; margin-left: auto; margin-right: auto;">
+                  </div>
+                </div>
+              </div>
+                <div class="row">
+                  <div class="col">
+                    <div id="menu-markdown1" style="text-align:justify;" class="show-list-numbers-and-dots" data-componentid="markdown1">
+                      <p style="color:#000000;font-size:12px;">SPE-GESTOR o app que atualiza você em tempo real sobre as prestações de contas eletrônicas do TCM-PA.</p>
+                    </div>
+                  </div>
+                </div>
+                  <ion-list id="menu-list2" data-componentid="list2">
+                    <div class="item item-divider">
+                      Selecione uma opção
+                    </div>
+                    <ion-item class="item-icon-left" id="menu-list-item10" ui-sref="main" menu-close="" data-componentid="list-item10">
+                      <i class="icon ion-android-home"></i>Início</ion-item>
+                    <ion-item class="item-icon-left" id="menu-list-item12" ui-sref="tabsController.notificacoes" menu-close="" data-componentid="list-item12">
+                      <i class="icon ion-android-notifications"></i>Notificações</ion-item>
+                    <ion-item class="item-icon-left" id="menu-list-item13" ui-sref="tabsController.perfil" menu-close="" data-componentid="list-item13">
+                      <i class="icon ion-android-person"></i>Perfil</ion-item>
+                    <ion-item class="item-icon-left" id="menu-list-item14" ui-sref="suporteAjuda" menu-close="" data-componentid="list-item14">
+                      <i class="icon ion-help-circled"></i>Suporte e Ajuda</ion-item>
+                    <ion-item class="item-icon-left" id="menu-list-item15" data-componentid="list-item15">
+                      <i class="icon ion-power"></i>Item</ion-item>
+                  </ion-list>
+            </ion-content>
+              <ion-footer-bar class="bar-stable">
+                  © 2016 TCM-PA.<br/>
+                  Diretoria de Informática - DI.</br/>
+                  Todos os direitos reservados. 
+              </ion-footer-bar>
+        </ion-side-menu>
+      </ion-side-menus>
+    </div>
   </body>
-</html>
+    </html>
