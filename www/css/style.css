@@ -5,3 +5,9 @@
   stroke: #e42112 !important;
   fill: #e42112 !important; 
 }
+
+ion-footer-bar {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
