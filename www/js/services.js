@@ -5,5 +5,15 @@ angular.module('app.services', [])
 }])
 
 .service('BlankService', [function(){
+    var objeto
 
+    return{
+        setObject: function(value){
+            objeto = value;
+        },
+
+        getObject: function(value){
+            return objeto;
+        }
+    }
 }]);
