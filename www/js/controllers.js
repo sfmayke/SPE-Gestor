@@ -12,7 +12,7 @@ angular.module('app.controllers', [])
             $scope.exercicio = {}
             $http({
                 method: 'GET',
-                url: 'http://localhost/ws/web/v1/spe-gestor/busca-dados-usuario?imei=357798072306630',
+                url: 'http://10.2.21.45/ws/web/v1/spe-gestor/busca-dados-usuario?imei=357798072306630',
             }).then(function (success) {
                 UsuarioService.setObject(success.data[0]);
                 $scope.user = UsuarioService.getObject();
@@ -24,7 +24,7 @@ angular.module('app.controllers', [])
 
             $http({
                 method: 'GET',
-                url: 'http://localhost/ws/web/v1/spe-gestor/busca-lista-competencia',
+                url: 'http://10.2.21.45/ws/web/v1/spe-gestor/busca-lista-competencia',
             }).then(function (success) {
 
                 ExercicioService.setObject(success.data);
@@ -44,7 +44,7 @@ angular.module('app.controllers', [])
                 ExercicioService.setSelectedAno(ano);
                 $http({
                     method: 'GET',
-                    url: 'http://localhost/ws/web/v1/spe-gestor/busca-competencia-ano?ano=' + ExercicioService.getSelectedAno(),
+                    url: 'http://10.2.21.45/ws/web/v1/spe-gestor/busca-competencia-ano?ano=' + ExercicioService.getSelectedAno(),
                 }).then(function (success) {
                     ListaService.setObject(success.data[ExercicioService.getSelectedAno()]);
                     $scope.competencia = ListaService.getObject();
