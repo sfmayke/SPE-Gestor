@@ -14,7 +14,7 @@
       </div>
       <div class="row">
         <div class="col">
-          <p style="color: gray;font-size:16px; text-align: center;">Olá, Conselheiro XXXXXXXX.</p>
+          <p style="color: gray;font-size:16px; text-align: center;">Olá, Conselheiro {{user.NOME}}.</p>
         </div>
       </div>
       <div class="list">
@@ -22,43 +22,24 @@
           <div class="input-label">
             Selecione o Ano:
           </div>
-          <select>
-            <option>2014</option>
-            <option selected>2015</option>
-            <option>2016</option>
-          </select>
+         <select ng-model="exercicio.opcoes" ng-options="template.EXERCICIO as template.EXERCICIO for template in exercicio.lista" ng-change="funcao(exercicio.opcoes);">
+         </select>
         </label>
       </div>
       <div class="row" style="background-color: #f8f8f8">
         <div class="col">
           <label>
-             <span class="ion-information-circled" ></span>&nbsp;<b>Você possui XX municípios para o exercício de XX-XX-XXXX.</b>
+             <span class="ion-information-circled" ></span>&nbsp;<b>Você possui {{user.QTD_MUN_EXERC}} municípios para o exercício de {{exercicio.opcoes}}.</b>
           </label>
         </div>
       </div>
 
-        <div class="list" style="margin-top: 10%">
-            <a href="#" class="item item-icon-left">
+        <div class="list" style="margin-top: 10%">            
+            <a href="#" class="item item-icon-left" ng-repeat="x in competencia">
               <i class="icon ion-android-apps"></i>
-              L.O.A
-            </a>
-            <a href="#" class="item item-icon-left">
-              <i class="icon ion-android-apps"></i>
-              1º Quadrimestre
-            </a>
-            <a href="#" class="item item-icon-left">
-              <i class="icon ion-android-apps"></i>
-              2º Quadrimestre
-            </a>
-            <a href="#" class="item item-icon-left">
-              <i class="icon ion-android-apps"></i>
-              3º Quadrimestre
-            </a>
-            <a href="#" class="item item-icon-left">
-              <i class="icon ion-android-apps"></i>
-              Balanço Geral
-            </a>
-
+              {{x.DESCRICAO}}
+              <p>{{x.STATUS}}</p>
+            </a>            
       </div>
   </ion-content>
 </ion-view>
