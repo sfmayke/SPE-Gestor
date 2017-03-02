@@ -46,7 +46,6 @@ angular.module('app.controllers', [])
                     method: 'GET',
                     url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-competencia-ano?ano=' + ExercicioService.getSelectedAno(),
                 }).then(function (success) {
-                    console.log(success.data[2016]);
                     ListaService.setObject(success.data[ExercicioService.getSelectedAno()]);
                     $scope.competencia = ListaService.getObject();
                     $ionicLoading.hide();
