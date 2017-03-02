@@ -1,9 +1,9 @@
 angular.module('app.controllers', [])
 
-    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicLoading', '$http', 'UsuarioService', 'ExercicioService', 'ListaService', '$location',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicLoading', '$http', 'UsuarioService', 'ExercicioService', 'ListaService', '$location', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicLoading, $http, UsuarioService, ExercicioService, ListaService, $location) {
+        function ($scope, $stateParams, $ionicLoading, $http, UsuarioService, ExercicioService, ListaService, $location, $state) {
             $ionicLoading.show({
                 template: '<ion-spinner icon="lines"></ion-spinner>',
             });
@@ -46,6 +46,7 @@ angular.module('app.controllers', [])
                     method: 'GET',
                     url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-competencia-ano?ano=' + ExercicioService.getSelectedAno(),
                 }).then(function (success) {
+                    console.log(success.data[2016]);
                     ListaService.setObject(success.data[ExercicioService.getSelectedAno()]);
                     $scope.competencia = ListaService.getObject();
                     $ionicLoading.hide();
@@ -54,7 +55,7 @@ angular.module('app.controllers', [])
 
             $scope.teste = function(x){
                 switch (x) {
-                    case 'L.O.A.': $location.path("/loa");                 
+                    case 'L.O.A.': $state.go('lOA');                 
                         break;                
                     default:
                         break;
@@ -119,11 +120,11 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('lOACtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('lOACtrl', ['$scope', '$stateParams', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams) {
-
+        function ($scope, $stateParams, $location) {
+            console.log($location.url());
 
         }])
 
