@@ -51,22 +51,7 @@ angular.module('app.controllers', [])
                     $scope.competencia = ListaService.getObject();
                     $ionicLoading.hide();
                 });
-            }
-
-            $scope.teste = function (x) {
-                switch (x) {
-<<<<<<< HEAD
-                    case 'L.O.A.': $state.go('lOA');                 
-                        break;                
-=======
-                    case 'L.O.A.': $location.path("/loa");
-                        break;
->>>>>>> origin/master
-                    default:
-                        break;
-                }
-
-            }
+            }           
         }])
 
     .controller('perfilCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -163,11 +148,6 @@ angular.module('app.controllers', [])
     .controller('lOACtrl', ['$scope', '$stateParams', '$location', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-<<<<<<< HEAD
-        function ($scope, $stateParams, $location) {
-            console.log($location.url());
-
-=======
         function ($scope, $stateParams) {
             var ctx = document.getElementById("myChart");
             var myChart = new Chart(ctx, {
@@ -206,7 +186,6 @@ angular.module('app.controllers', [])
                     }
                 }
             });
->>>>>>> origin/master
         }])
 
     .controller('balancoGeralCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
