@@ -107,39 +107,49 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams) {
             var ctx = document.getElementById("myChart");
             new Chart(ctx, {
-                type: 'polarArea',
+                type: 'pie',
                 data: {
-                    datasets: [{
+                    datasets: 
+                    [{
                         data: [
-                            11,
+                            15,
                             16,
-                            7,
-                            3,
-                            14
                         ],
                         backgroundColor: [
                             "#FF6384",
                             "#4BC0C0",
-                            "#FFCE56",
-                            "#E7E9ED",
-                            "#36A2EB"
                         ],
-                        label: 'My dataset' // for legend
+                        borderColor: [
+                            "#ffffff",
+                            "#ffffff",
+                        ],
                     }],
                     labels: [
-                        "Red",
-                        "Green",
-                        "Yellow",
-                        "Grey",
-                        "Blue"
-                    ]
+                        "Entregues",
+                        "Não entregues",
+                    ],                    
                 },
                 options: {
+                    
                     elements: {
                         arc: {
-                            borderColor: "#000000"
+                            borderColor: "black"
                         }
-                    }
+                    },
+                    legend: {
+                        position: 'bottom',
+                        onClick: function(e){ e.stopPropagation(); } ,
+                        display: true,
+                        labels: {
+                            fontColor: 'black'
+                        }
+                        
+                    },
+                    title: {
+                        display: true,
+                        text: '3º Quadrimestre',
+                        fontSize: 18,
+                    },
                 }
             });
         }])
