@@ -13,8 +13,8 @@ var geraGrafico = (function () {
                             data2,
                         ],
                         backgroundColor: [
-                            "#FF6384",
-                            "#4BC0C0",
+                            "#7ADB5A",
+                            "#E03C1B",
                         ],
                         borderColor: [
                             "#ffffff",
@@ -40,12 +40,6 @@ var geraGrafico = (function () {
                         labels: {
                             fontColor: 'black'
                         }
-                        
-                    },
-                    title: {
-                        display: true,
-                        text: '3º Quadrimestre',
-                        fontSize: 18,
                     },
                 }
             });
