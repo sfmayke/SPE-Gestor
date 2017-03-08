@@ -1,11 +1,25 @@
 <ion-view title="3º Quadrimestre" id="page11">
-  <ion-content padding="true" class="has-header">
-
-        <div class="card">
-          <div class="item item-text-wrap">
-            <canvas id="myChart" width="400" height="400"></canvas>
-          </div>
+    <ion-content padding="true" class="has-header">
+        <div class="list">
+            <label class="item item-input item-select">
+                <div class="input-label">Selecione o Município</div>
+                <select>
+                    <option>Belém</option>
+                </select>
+            </label>
         </div>
-
-  </ion-content>
+        <div class="card">
+            <div class="item item-text-wrap">
+                <canvas id="myChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+        <div class="list">
+            <a class="item item-icon-right">
+                <i class="icon ion-ios-checkmark-outline balanced"></i> Belém
+            </a>
+            <a class="item item-icon-right">
+                <i class="icon ion-ios-close-outline assertive"></i> Ananindeua
+            </a>
+        </div>
+    </ion-content>
 </ion-view>
