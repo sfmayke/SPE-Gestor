@@ -53,4 +53,18 @@ angular.module('app.services', [])
             return lista;
         }
     }
+}])
+
+.service('MunicipiosService', [function(){
+    var municipios
+
+    return{
+        setObject: function(value){
+            municipios = value;            
+        },
+
+        getObject: function(value){
+            return municipios;
+        }
+    }
 }]);
