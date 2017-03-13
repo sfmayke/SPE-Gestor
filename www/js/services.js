@@ -22,7 +22,7 @@ angular.module('app.services', [])
 
     var UsuarioFactory = {};
     
-    UsuarioFactory.getUsuario = function(competencia) {
+    UsuarioFactory.getUsuario = function() {
         return $http({
                 method: 'GET',
                 url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-dados-usuario?imei=357798072306630'
@@ -41,7 +41,7 @@ angular.module('app.services', [])
 
     var ListaFactory = {};
     
-    ListaFactory.getLista = function(competencia) {
+    ListaFactory.getLista = function() {
         return $http({
                 method: 'GET',
                 url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-lista-competencia',
@@ -54,6 +54,24 @@ angular.module('app.services', [])
     }
 
     return ListaFactory;
+})
+
+.factory('CompetenciaFactory', function($http, $log) {
+    //ExercicioService.getSelectedAno()
+    var CompetenciaFactory = {};
+    
+    CompetenciaFactory.getCompetencia = function(ano) {
+        return $http({
+                method: 'GET',
+                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-competencia-ano?ano=' + ano,
+            })
+            .then(function(response) {                
+                return response.data[ano];
+            })
+            .catch($log.err);
+    }
+
+    return CompetenciaFactory;
 })
 
 .service('UsuarioService', [function(){
