@@ -3,7 +3,7 @@
       <div class="list">
             <label class="item item-input item-select">
                 <div class="input-label">Município:</div>                
-                <select ng-model="munsel" ng-change="reload(munsel, numreg)">
+                <select ng-model="munsel" ng-change="select.reload(munsel, numreg, municipio)">
                     <option ng-repeat="x in municipio" value="{{$index}}">{{x.NOME_MUNICIPIO}}</option>
                 </select>
             </label>
