@@ -1,8 +1,60 @@
 angular.module('app.services', [])
 
-.factory('BlankFactory', [function(){
+.factory('OrgaoFactory', function($http, $log, ExercicioService, UsuarioService) {
 
-}])
+    var OrgaoFactory = {};
+    var usuario = UsuarioService.getObject();
+    OrgaoFactory.getOrgao = function(competencia) {
+        return $http({
+                method: 'GET',
+                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-orgaos?ano=' + ExercicioService.getSelectedAno() + '&competencia='+competencia+'&controladoria=' + usuario.COD_SETOR
+            })
+            .then(function(response) {
+                return response.data;
+            })
+            .catch($log.err);
+    }
+
+    return OrgaoFactory;
+})
+
+.factory('UsuarioFactory', function($http, $log, UsuarioService) {
+
+    var UsuarioFactory = {};
+    
+    UsuarioFactory.getUsuario = function(competencia) {
+        return $http({
+                method: 'GET',
+                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-dados-usuario?imei=357798072306630'
+            })
+            .then(function(response) {
+                UsuarioService.setObject(response.data[0]);
+                return response.data;
+            })
+            .catch($log.err);
+    }
+
+    return UsuarioFactory;
+})
+
+.factory('ListaFactory', function($http, $log, ExercicioService) {
+
+    var ListaFactory = {};
+    
+    ListaFactory.getLista = function(competencia) {
+        return $http({
+                method: 'GET',
+                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-lista-competencia',
+            })
+            .then(function(response) {
+                ExercicioService.setObject(response.data);
+                return response.data;
+            })
+            .catch($log.err);
+    }
+
+    return ListaFactory;
+})
 
 .service('UsuarioService', [function(){
     var usuario
