@@ -15,7 +15,7 @@
         </div>
         <div class="list">
             <a class="item item-icon-right" ng-repeat="x in municipio[munsel].ORGAOS">
-                <i ng-class="x.enviados == 1 ? 'icon ion-ios-checkmark-outline balanced' : 'icon ion-ios-close-outline assertive'"></i> {{x.NOME_ORGAO}}
+                <i ng-class="x.enviados == 1 ? 'icon ion-ios-checkmark-outline balanced' : 'icon ion-ios-close-outline assertive'"></i><span style="font-size: 12px">{{x.NOME_ORGAO}}</span>
             </a>
         </div>
     </ion-content>
