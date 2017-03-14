@@ -69,7 +69,8 @@ angular.module('app.controllers', [])
            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });            
             OrgaoFactory.getOrgao('1')
                 .then(function(success) {
-                    $ionicLoading.hide();                    
+                    $ionicLoading.hide();
+                    grafico = null;                    
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();    
                     $scope.municipio = success;                
@@ -85,7 +86,8 @@ angular.module('app.controllers', [])
            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });            
             OrgaoFactory.getOrgao('2')
                 .then(function(success) {
-                    $ionicLoading.hide();                    
+                    $ionicLoading.hide();  
+                    grafico = null;                  
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();    
                     $scope.municipio = success;                
@@ -101,7 +103,8 @@ angular.module('app.controllers', [])
            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });            
             OrgaoFactory.getOrgao('3')
                 .then(function(success) {
-                    $ionicLoading.hide();                    
+                    $ionicLoading.hide();  
+                    grafico = null;                  
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();    
                     $scope.municipio = success;                
@@ -117,7 +120,8 @@ angular.module('app.controllers', [])
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });            
             OrgaoFactory.getOrgao('901')
                 .then(function(success) {
-                    $ionicLoading.hide();                    
+                    $ionicLoading.hide();    
+                    grafico = null;                
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();    
                     $scope.municipio = success;                
@@ -133,7 +137,8 @@ angular.module('app.controllers', [])
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });            
             OrgaoFactory.getOrgao('999')
                 .then(function(success) {
-                    $ionicLoading.hide();                    
+                    $ionicLoading.hide();
+                    grafico = null;                    
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();    
                     $scope.municipio = success;                
