@@ -22,8 +22,8 @@ var geraGrafico = (function () {
                         ],
                     }],
                     labels: [
-                        "Entregues: " + data1,
-                        "Não entregues: " + data2,
+                        "Entregues: ",
+                        "Não entregues: ",
                     ],                    
                 },
                 options: {             
@@ -38,7 +38,7 @@ var geraGrafico = (function () {
                         display: true,
                         labels: {
                             fontColor: 'black',
-                            fontSize: 14,
+                            //fontSize: 14,
                         }
                     },
                 }
