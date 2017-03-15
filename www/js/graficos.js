@@ -22,12 +22,11 @@ var geraGrafico = (function () {
                         ],
                     }],
                     labels: [
-                        "Entregues",
-                        "Não entregues",
+                        "Entregues: ",
+                        "Não entregues: ",
                     ],                    
                 },
-                options: {
-                    
+                options: {             
                     elements: {
                         arc: {
                             borderColor: "black"
@@ -38,7 +37,8 @@ var geraGrafico = (function () {
                         onClick: function(e){ e.stopPropagation(); } ,
                         display: true,
                         labels: {
-                            fontColor: 'black'
+                            fontColor: 'black',
+                            //fontSize: 14,
                         }
                     },
                 }

@@ -1,8 +1,8 @@
 <ion-view title="1º Quadrimestre" id="page9">
     <ion-content padding="true" class="has-header">            
-        <div class="list">
+        <div class="list">  
             <label class="item item-input item-select">
-                <div class="input-label">Município:</div>                
+                <div class="input-label">Município:</div>            
                 <select ng-model="munsel" ng-change="select.reload(munsel, numreg, municipio)">
                     <option ng-repeat="x in municipio" value="{{$index}}">{{x.NOME_MUNICIPIO}}</option>
                 </select>
@@ -15,7 +15,7 @@
         </div>
         <div class="list">
             <a class="item item-icon-right" ng-repeat="x in municipio[munsel].ORGAOS">
-                <i ng-class="x.enviados == 1 ? 'icon ion-ios-checkmark-outline balanced' : 'icon ion-ios-close-outline assertive'"></i> {{x.NOME_ORGAO}}
+                </marquee><i ng-class="x.enviados == 1 ? 'icon ion-ios-checkmark-outline balanced' : 'icon ion-ios-close-outline assertive'"></i><span style="font-size: 12px">{{x.NOME_ORGAO}}</span></marquee>
             </a>
         </div>
     </ion-content>
