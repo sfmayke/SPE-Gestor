@@ -1,3 +1,5 @@
+var grafico = null;
+
 var selecao = (function () {
   "use strict";
    return {      
@@ -7,8 +9,14 @@ var selecao = (function () {
                 graficoparam = objeto['TOTAL'];
             } else {
                 graficoparam = objeto[selecionado];
-            }
-            geraGrafico.piechart(graficoparam.ENVIADOS, graficoparam.NAO_ENVIADOS);                
+            }            
+            if(grafico == null){
+                grafico = geraGrafico.piechart(graficoparam.ENVIADOS, graficoparam.NAO_ENVIADOS);
+            }else{
+                grafico.data.datasets[0].data[0] = graficoparam.ENVIADOS;
+                grafico.data.datasets[0].data[1] = graficoparam.NAO_ENVIADOS;
+                grafico.update();           
+            }            
       })
    };
 }());
