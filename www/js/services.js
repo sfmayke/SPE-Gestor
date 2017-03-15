@@ -18,18 +18,29 @@ angular.module('app.services', [])
     return OrgaoFactory;
 })
 
-.factory('UsuarioFactory', function($http, $log, UsuarioService) {
+.factory('UsuarioFactory', function($http, $log, UsuarioService, $ionicPopup, $ionicLoading) {
 
     var UsuarioFactory = {};
     
-    UsuarioFactory.getUsuario = function() {
+    UsuarioFactory.getUsuario = function(uuid) {
         return $http({
                 method: 'GET',
-                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-dados-usuario?imei=357798072306630'
+                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-dados-usuario?imei='+uuid
             })
             .then(function(response) {
-                UsuarioService.setObject(response.data[0]);
-                return response.data;
+                if(response.data[0] == undefined){
+                    $ionicLoading.hide();
+                    var alertPopup = $ionicPopup.alert({
+                         title: 'Dispositivo Inválido',
+                         template: 'Conecte com um dispositivo que tenha permissão de acesso ao aplicativo'
+                     });
+                     alertPopup.then(function () {
+                         ionic.Platform.exitApp();
+                     });
+                }else{
+                    UsuarioService.setObject(response.data[0]);
+                    return response.data;
+                }                
             })
             .catch($log.err);
     }
