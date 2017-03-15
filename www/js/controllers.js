@@ -1,9 +1,9 @@
 angular.module('app.controllers', [])
 
-    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', '$http', 'UsuarioService', 'ExercicioService', 'ListaService', '$location', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', 'CompetenciaFactory', '$http', 'UsuarioService', 'ExercicioService', 'ListaService', '$location', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicLoading, UsuarioFactory, ListaFactory, $http, UsuarioService, ExercicioService, ListaService, $location, $state) {
+        function ($scope, $stateParams, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, $http, UsuarioService, ExercicioService, ListaService, $location, $state) {
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             $scope.contador = 2;
             $scope.date = new Date().getUTCFullYear();
@@ -13,37 +13,20 @@ angular.module('app.controllers', [])
                 $scope.user = UsuarioService.getObject();
                 ListaFactory.getLista().then(function (success) {
                     $scope.exercicio.lista = ExercicioService.getObject();
+                    $scope.funcao($scope.date.toString());
+                    $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
+                    $ionicLoading.hide();                    
                 });
-            });
-
-            $http({
-                method: 'GET',
-                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-lista-competencia',
-            }).then(function (success) {
-
-                ExercicioService.setObject(success.data);
-                $scope.exercicio.lista = ExercicioService.getObject();
-                $scope.contador--;
-                if ($scope.contador == 0) {
-                    $ionicLoading.hide();
-                }
-                $scope.funcao($scope.date.toString());
-                $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
             });
 
             $scope.funcao = function (ano) {
-                $ionicLoading.show({
-                    template: '<ion-spinner icon="lines"></ion-spinner>',
-                });
+                $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
                 ExercicioService.setSelectedAno(ano);
-                $http({
-                    method: 'GET',
-                    url: 'http://10.2.21.48/ws/web/v1/spe-gestor/busca-competencia-ano?ano=' + ExercicioService.getSelectedAno(),
-                }).then(function (success) {
-                    ListaService.setObject(success.data[ExercicioService.getSelectedAno()]);
+                CompetenciaFactory.getCompetencia(ExercicioService.getSelectedAno()).then(function(success){
+                    ListaService.setObject(success);
                     $scope.competencia = ListaService.getObject();
                     $ionicLoading.hide();
-                });
+                });            
             }
         }])
 
@@ -110,8 +93,9 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory, $cordovaDevice) {
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             OrgaoFactory.getOrgao('1')
-                .then(function (success) {
+                .then(function(success) {
                     $ionicLoading.hide();
+                    grafico = null;                    
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();
                     $scope.municipio = success;
@@ -128,8 +112,9 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             OrgaoFactory.getOrgao('2')
-                .then(function (success) {
-                    $ionicLoading.hide();
+                .then(function(success) {
+                    $ionicLoading.hide();  
+                    grafico = null;                  
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();
                     $scope.municipio = success;
@@ -144,8 +129,9 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             OrgaoFactory.getOrgao('3')
-                .then(function (success) {
-                    $ionicLoading.hide();
+                .then(function(success) {
+                    $ionicLoading.hide();  
+                    grafico = null;                  
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();
                     $scope.municipio = success;
@@ -160,8 +146,9 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             OrgaoFactory.getOrgao('901')
-                .then(function (success) {
-                    $ionicLoading.hide();
+                .then(function(success) {
+                    $ionicLoading.hide();    
+                    grafico = null;                
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();
                     $scope.municipio = success;
@@ -176,8 +163,9 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             OrgaoFactory.getOrgao('999')
-                .then(function (success) {
+                .then(function(success) {
                     $ionicLoading.hide();
+                    grafico = null;                    
                     $scope.numreg = (Object.keys(success).length - 1);
                     $scope.munsel = $scope.numreg.toString();
                     $scope.municipio = success;
