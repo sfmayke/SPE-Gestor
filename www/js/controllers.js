@@ -5,23 +5,23 @@ angular.module('app.controllers', [])
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService) {
             ionic.Platform.ready(function () {
-                 $scope.uuid = window.device.uuid;
+                //$scope.uuid = window.device.uuid;
             })
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             $scope.date = new Date().getUTCFullYear();
             $scope.exercicio = {}
 
-            UsuarioFactory.getUsuario($scope.uuid).then(function (success) {
+            UsuarioFactory.getUsuario('357798072306630').then(function (success) {
                 $scope.user = UsuarioService.getObject();
                 //$scope.user.IMEI = 'e0e0bd0ef84f7d03';
                 //$scope.user.IMEI = '357798072306630';   
-                if(success != undefined){                                 
-                    ListaFactory.getLista().then(function (success) {                        
+                if (success != undefined) {
+                    ListaFactory.getLista().then(function (success) {
                         $scope.exercicio.lista = ExercicioService.getObject();
                         $scope.funcao($scope.date.toString());
                         $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
                         $ionicLoading.hide();
-                    });                 
+                    });
                 }
             });
             $scope.funcao = function (ano) {
@@ -43,16 +43,17 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('notificacoesCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('notificacoesCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, $ionicSlideBoxDelegate) {
 
-            
-
+            // $scope.nextSlide = function () {
+            //     $ionicSlideBoxDelegate.next();
+            // }
             $scope.options = {
                 loop: false,
-                effect: 'fade',
+                effect: 'slide',
                 speed: 500,
             }
 
@@ -69,10 +70,8 @@ angular.module('app.controllers', [])
                 // note: the indexes are 0-based
                 $scope.activeIndex = data.slider.activeIndex;
                 $scope.previousIndex = data.slider.previousIndex;
-                $scope.nextSlide = function () {
-                $ionicSlideBoxDelegate.next();
-            }
             });
+
         }])
 
     .controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
