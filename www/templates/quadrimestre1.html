@@ -13,10 +13,10 @@
                 <canvas id="myChart" width="400" height="400"></canvas>
             </div>
         </div>
-        <div class="list">
-            <a class="item item-icon-right" ng-repeat="x in municipio[munsel].ORGAOS">
-                </marquee><i ng-class="x.enviados == 1 ? 'icon ion-ios-checkmark-outline balanced' : 'icon ion-ios-close-outline assertive'"></i><span style="font-size: 12px">{{x.NOME_ORGAO}}</span></marquee>
-            </a>
+        <div class="list" disabled>
+            <span class="item item-icon-right" ng-repeat="x in municipio[munsel].ORGAOS">
+                <i ng-class="x.enviados == 1 ? 'icon ion-ios-checkmark-outline balanced' : 'icon ion-ios-close-outline assertive'"></i><span style="font-size: 12px">{{x.NOME_ORGAO}}</span>
+            </span>
         </div>
     </ion-content>
 </ion-view>

@@ -35,11 +35,14 @@ angular.module('app.controllers', [])
             }
         }])
 
-    .controller('perfilCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('perfilCtrl', ['$scope', '$stateParams',  'UsuarioService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams) {
+        function ($scope, $stateParams, UsuarioService) {
 
+            $scope.user = UsuarioService.getObject();
+            $scope.anoAtual = new Date().getUTCFullYear();
+            console.log($scope.user);
 
         }])
 
@@ -48,9 +51,10 @@ angular.module('app.controllers', [])
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, $ionicSlideBoxDelegate) {
 
-            // $scope.nextSlide = function () {
-            //     $ionicSlideBoxDelegate.next();
-            // }
+            //GetWebService Herer!!!
+            //WebService Variable can be add to the view normally and de ng-repeat works perfectly! dont worry about it.
+
+            //slides code dont change!
             $scope.options = {
                 loop: false,
                 effect: 'slide',
