@@ -14,8 +14,22 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $ionicPopup) {
   $ionicPlatform.ready(function() {
+    var notificationOpenedCallback = function(jsonData) {
+      var alertPopup = $ionicPopup.alert({
+          title: 'testeok',
+          template: "Notification opened:\n" + JSON.stringify(jsonData)
+        });
+      
+      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
+    };
+
+    window.plugins.OneSignal
+      .startInit("8f34515c-5d66-4f45-b73e-7b02293af310")
+      .handleNotificationOpened(notificationOpenedCallback)
+      .endInit();
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
