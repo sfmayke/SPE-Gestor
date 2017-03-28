@@ -1,5 +1,6 @@
 angular.module('app.services', [])
 
+
 .factory('OrgaoFactory', function($http, $log, ExercicioService, UsuarioService) {
 
     var OrgaoFactory = {};
@@ -17,6 +18,13 @@ angular.module('app.services', [])
 
     return OrgaoFactory;
 })
+
+.factory('Auth', function($firebaseAuth) {
+    var endPoint = "https://console.firebase.google.com/project/onesignal-ionic-example-master" ;
+    var usersRef = new Firebase(endPoint);
+    return $firebaseAuth(usersRef);
+  })
+  
 
 .factory('UsuarioFactory', function($http, $log, UsuarioService, $ionicPopup, $ionicLoading) {
 

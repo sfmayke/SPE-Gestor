@@ -22,8 +22,8 @@ var geraGrafico = (function () {
                         ],
                     }],
                     labels: [
-                        "Entregues: ",
-                        "Não entregues: ",
+                        "Entregues",
+                        "Não entregues",
                     ],                    
                 },
                 options: {             

@@ -11,9 +11,9 @@
             <div class="col">
                 <div class="card">
                     <div class="item item-text-wrap" style="font-size: 14px">
-                        <b>Nome:</b></br> Rogerio Gomes</br>
-                        <b>Data Nascimento:</b></br> 21/10/1950</br>
-                        <b>Cargo:</b></br> Controlador
+                        <b>Nome:</b></br> {{user.NOME}}</br>
+                        
+                        <b>Cargo:</b></br> {{user.CARGO}}
                     </div>
                 </div>
             </div>
@@ -27,13 +27,13 @@
                                 <b>Controladoria:</b>
                             </li>
                             <li>
-                                1º Controladoria.
+                                {{user.SETOR}}
                             </li>
                             <li>
-                                <b>Qtd. de municípios da sua controladoria:</b>
+                                <b>Qtd. de municípios da sua controladoria no ano corrente:</b> 
                             </li>
                             <li>
-                                23 municípios.
+                                {{user.QTD_MUN_EXERC[anoAtual].municipios}}
                             </li>
                         </ul>
                     </div>
