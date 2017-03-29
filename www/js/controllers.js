@@ -13,10 +13,15 @@ angular.module('app.controllers', [])
             $scope.exercicio = {}
 
             UsuarioFactory.getUsuario('357798072306630').then(function (success) {
-                $scope.user = UsuarioService.getObject();
+                $scope.user = UsuarioService.getObject();                
                 //$scope.user.IMEI = 'e0e0bd0ef84f7d03';
                 //$scope.user.IMEI = '357798072306630';   
-                if (success != undefined) {
+                if (success != undefined) {                    
+                    window.plugins.OneSignal.getTags(function (tags) {
+                        if (!tags){
+                            window.plugins.OneSignal.sendTag("Controladoria", $scope.user['COD_SETOR']);
+                        } 
+                    });
                     ListaFactory.getLista().then(function (success) {
                         $scope.exercicio.lista = ExercicioService.getObject();
                         $scope.funcao($scope.date.toString());
