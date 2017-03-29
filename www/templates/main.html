@@ -1,47 +1,110 @@
-<ion-view title="SPE GESTOR" id="page2">
-  <ion-content padding="false" class="has-header">    
-    <div class="row">
-      <div class="col">
-        <div id="menu-markdown1" style="text-align:justify;" class="show-list-numbers-and-dots" data-componentid="markdown1">
-        <img src="img/VUHtA6NVS0KwMtWbdnFR_logo.png" style="display: block; width: 40%; height: 40%; margin-left: auto; margin-right: auto;">
-        </div>
-      </div>
-    </div>
-      <div class="row">
-        <div class="col">
-          <p style="color: gray;font-size:14px; text-align: center">Bem vindo ao SPE-GESTOR.</p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <p style="color: gray;font-size:16px; text-align: center;">Olá, {{user.CARGO}} {{user.NOME}}.</p>
-        </div>
-      </div>
-      <div class="card">
-        <label class="item item-input item-select">
-          <div class="input-label">
-            Selecione o Ano:
-          </div>
-         <select ng-model="exercicio.opcoes" ng-options="template.EXERCICIO as template.EXERCICIO for template in exercicio.lista" ng-change="funcao(exercicio.opcoes);">
-         </select>
-        </label>
-      </div>
-      <div class="card">
-      <div class="row" style="background-color: #f8f8f8">
-        <div class="col">
-          <label>
-             <span class="ion-information-circled" ></span>&nbsp;<b>Você possui {{user.QTD_MUN_EXERC[exercicio.opcoes].municipios}} municípios para o exercício de {{exercicio.opcoes}}.</b>
-          </label>
-        </div>
-      </div>
-      </div>
+<ion-content padding="false">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <ion-view title="Notificações" id="page3">
+                    <ion-header-bar class="bar-assertive">
+                        <div class="title" style="text-align: center">Notificações</div>
+                    </ion-header-bar>
+                    <!-- Aqui entra o codigo codificado por ti!    -->
+                    <ion-content>
+                        <div class="cardNotification">
+                            teste
+                        </div>
+                    </ion-content>
+                    <!--                                           -->
+                </ion-view>
+            </div>
+            <div class="swiper-slide">
+                <ion-view title="SPE GESTOR" id="page2">
+                    <ion-header-bar class="bar-assertive">
+                        <div class="title" style="text-align: center">SPE-GESTOR</div>
+                    </ion-header-bar>
+                    <ion-content padding="false">
+                        <div class="row">
+                            <div class="col">
+                                <div id="menu-markdown1" style="text-align:justify;" class="show-list-numbers-and-dots" data-componentid="markdown1">
+                                    <img src="img/VUHtA6NVS0KwMtWbdnFR_logo.png" style="display: block; width: 40%; height: 40%; margin-left: auto; margin-right: auto;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p style="color: grey;font-size:14px; text-align: center">Bem vindo ao SPE-GESTOR.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p style="color: grey;font-size:16px; text-align: center;">Olá, {{user.CARGO}} {{user.NOME}}.</p>
+                            </div>
+                        </div>
 
-      <div class="card" style="margin-top: 10%">            
-            <a class="item item-icon-left" ng-repeat="x in competencia" href="#/{{x.DESCRICAO}}">
-              <i class="icon ion-android-apps"></i>
-              {{x.DESCRICAO}}
-              <p>{{x.STATUS}}</p>
-            </a>            
-      </div>
-  </ion-content>
-</ion-view>
+                        <label class="item item-input item-select">
+                            <div class="input-label">Selecione o Ano: </div>
+                                <select ng-model="exercicio.opcoes" ng-options="template.EXERCICIO as template.EXERCICIO for template in exercicio.lista" ng-change="funcao(exercicio.opcoes);"></select>
+                        </label>
+
+                        <div class="row" style="background-color: #f8f8f8">
+                            <div class="col">
+                                <label>
+                                        <span class="ion-information-circled" ></span>&nbsp;<b>Você possui {{user.QTD_MUN_EXERC[exercicio.opcoes].municipios}} municípios para o exercicio de {{exercicio.opcoes}}.</b>
+                                    </label>
+                            </div>
+                        </div>
+
+                        <div class="card" style="margin-top: 10%">
+                            <a class="item item-icon-left" ng-repeat="x in competencia" href="#/{{x.DESCRICAO}}">
+                                <i class="icon ion-android-apps"></i> {{x.DESCRICAO}}
+                                <p>{{x.STATUS}}</p>
+                            </a>
+                        </div>
+                    </ion-content>
+                </ion-view>
+            </div>
+            <div class="swiper-slide">
+                <ion-view title="Perfil" id="page6">
+                    <ion-header-bar class="bar-assertive">
+                        <div class="title" style="text-align: center">Perfil</div>
+                    </ion-header-bar>
+                    <ion-content padding="false">
+                        <div class="row">
+                            <div class="col">
+                                <img src="../img/perfil.png">
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="item item-text-wrap" style="font-size: 14px">
+                                        <b>Nome:</b></br> {{user.NOME}}</br>
+                                        <b>Cargo:</b></br> {{user.CARGO}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="item item-text-wrap" style="font-size: 14px">
+                                        <ul>
+                                            <li>
+                                                <b>Controladoria</b>
+                                            </li>
+                                            <li>
+                                                {{user.SETOR}}
+                                            </li>
+                                            <li>
+                                                <b>Qtd. de municípios da sua controladoria no ano corrente</b>
+                                            </li>
+                                            <li>
+                                                {{user.QTD_MUN_EXERC[anoAtual].municipios}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-content>
+                </ion-view>
+            </div>
+        </div>
+    </div>
+</ion-content>
