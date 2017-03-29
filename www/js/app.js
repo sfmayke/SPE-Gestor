@@ -17,16 +17,12 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 .run(function($ionicPlatform, $ionicPopup) {
   $ionicPlatform.ready(function() {
     var notificationOpenedCallback = function(jsonData) {
-      var alertPopup = $ionicPopup.alert({
-          title: 'testeok',
-          template: "Notification opened:\n" + JSON.stringify(jsonData)
-        });
       
-      console.log('notificationOpenedCallback: ' + JSON.stringify(jsonData));
     };
 
     window.plugins.OneSignal
-      .startInit("8f34515c-5d66-4f45-b73e-7b02293af310")
+      // .startInit("8f34515c-5d66-4f45-b73e-7b02293af310")
+      .startInit("f48f1411-d172-4abc-af70-35cac26a318b")
       .handleNotificationOpened(notificationOpenedCallback)
       .endInit();
 
