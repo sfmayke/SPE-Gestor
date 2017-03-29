@@ -93,6 +93,25 @@ angular.module('app.services', [])
     return CompetenciaFactory;
 })
 
+.factory('NotificacaoFactory', function($http, $log, UsuarioService) {
+    //ExercicioService.getSelectedAno()
+    var NotificacaoFactory = {};
+    var usuario = UsuarioService.getObject();
+
+    NotificacaoFactory.getNotificacao = function() {
+        return $http({
+                method: 'GET',
+                url: 'http://10.2.21.48/ws/web/v1/spe-gestor/notificacoes?controladoria=' + usuario.COD_SETOR,
+            })
+            .then(function(response) {                              
+                return response.data;
+            })
+            .catch($log.err);
+    }
+
+    return NotificacaoFactory;
+})
+
 .service('UsuarioService', [function(){
     var usuario
 

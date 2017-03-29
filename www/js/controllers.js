@@ -68,36 +68,13 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('notificacoesCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('notificacoesCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', 'NotificacaoFactory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicSlideBoxDelegate) {
-
-            //GetWebService Herer!!!
-            //WebService Variable can be add to the view normally and de ng-repeat works perfectly! dont worry about it.
-
-            //slides code dont change!
-            $scope.options = {
-                loop: false,
-                effect: 'slide',
-                speed: 500,
-            }
-
-            $scope.$on("$ionicSlides.sliderInitialized", function (event, data) {
-                // data.slider is the instance of Swiper
-                $scope.slider = data.slider;
-            });
-
-            $scope.$on("$ionicSlides.slideChangeStart", function (event, data) {
-                console.log('Slide change is beginning');
-            });
-
-            $scope.$on("$ionicSlides.slideChangeEnd", function (event, data) {
-                // note: the indexes are 0-based
-                $scope.activeIndex = data.slider.activeIndex;
-                $scope.previousIndex = data.slider.previousIndex;
-            });
-
+        function ($scope, $stateParams, $ionicSlideBoxDelegate, NotificacaoFactory) {           
+            NotificacaoFactory.getNotificacao().then(function(success){
+                $scope.notificacoes = success                
+            })
         }])
 
     .controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller

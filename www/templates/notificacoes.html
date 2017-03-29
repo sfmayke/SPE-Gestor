@@ -1,30 +1,14 @@
 <ion-view title="Notificações" id="page3">
     <ion-content padding="true" scroll="false" class="has-header">
-        <ion-slides options="options" slider="data.slider">
-            <ion-slide-page>
-                <!-- put ng-repeate here -->
-                <div class="row row-center">
-                    <div class="col col-bottom">
-                        <div class="bar bar-header bar-stable">
-                            <h1 class="title">15/03/2017</h1>
-                        </div>
-                    </div>
-                </div>
-                <div class="list card">
-                    <span class="item item-icon-right">
-                        <i class="icon ion-ios-checkmark-outline balanced"></i> <b>Secretaria de Educação</b> entregou a <b>LOA.</b>
-                    </span>
-                    <span href="#" class="item item-icon-right">
-                        <i class="icon ion-ios-checkmark-outline balanced"></i> <b>Secretaria de Saúde</b> entregou a <b>LOA.</b>
-                    </span>
-                    <span href="#" class="item item-icon-right">
-                        <i class="icon ion-ios-checkmark-outline balanced"></i> <b>Prefeitura</b> entregou a <b>LOA.</b>
-                    </span>
-                    <span href="#" class="item item-icon-right">
-                        <i class="icon ion-ios-checkmark-outline balanced"></i> <b>Secretaria de Educação</b> entregou a <b>LOA.</b>
-                    </span>
-                </div>
-            </ion-slide-page>
-        </ion-slides>
+        <!-- put ng-repeate here -->
+        <div class="list" style="text-align:left" ng-repeat="notif in notificacoes">
+            <div class="item item-divider">
+                {{notif[0].DATA_NOTIFICACAO}}
+            </div>
+
+            <a class="item" href="#" ng-repeat="registro in notif">
+                {{registro.ORGAO}} ({{registro.MUNICIPIO}}) entregou {{registro.COMPETENCIA}} referente ao exercício de {{registro.ANO}}
+            </a>
+        </div>
     </ion-content>
 </ion-view>
