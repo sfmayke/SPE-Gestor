@@ -35,6 +35,7 @@
         <link href="css/ionic.app.css" rel="stylesheet">
         -->
 
+    <link rel="stylesheet" href="node_modules/swiper/dist/css/swiper.min.css">
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
@@ -50,10 +51,10 @@
             padding: 0px !important;
         }
         
-        .card {
-            padding-top: 0px;
-            padding-bottom: 0px;
-            box-shadow: 0 5px 0px white;
+        .cardNotification {
+            padding-top: 5px;
+            padding-left: 5px;
+            box-shadow: 1 5px 10px black;
         }
         
         #form {
@@ -142,6 +143,7 @@
 
     <script src="js/graficos.js"></script>
     <script src="js/select.js"></script>
+    <script src="node_modules/swiper/dist/js/swiper.min.js"></script>
 
 
     <!-- Only required for Tab projects w/ pages in multiple tabs
@@ -152,51 +154,7 @@
 
 <body ng-app="app" animation="slide-left-right-ios7">
     <ion-side-menus enable-menu-with-back-views="false" data-componentid="side-menu21">
-        <ion-side-menu-content drag-content="false">
-            <ion-nav-bar class="bar-assertive">
-                <ion-nav-back-button style="text-align: left"></ion-nav-back-button>
-                <ion-nav-buttons side="left">
-                    <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-                </ion-nav-buttons>
-            </ion-nav-bar>
             <ion-nav-view></ion-nav-view>
-        </ion-side-menu-content>
-        <ion-side-menu side="left" id="side-menu21">
-            <ion-header-bar class="bar-assertive">
-                <div class="title">MENU</div>
-            </ion-header-bar>
-            <ion-content ng-controller="menuCtrl" padding="false" class="side-menu-left has-header">
-                <div class="row">
-                    <div class="col col-75 col col-offset-10">
-                        <div data-componentid="image1">
-                            <img src="img/VUHtA6NVS0KwMtWbdnFR_logo.png" style="display: block; width: 70%; height: 70%; margin-left: auto; margin-right: auto;">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div id="menu-markdown1" style="text-align:justify;" class="show-list-numbers-and-dots" data-componentid="markdown1">
-                            <p style="color:#000000;font-size:12px;">SPE-GESTOR o app que atualiza você em tempo real sobre as prestações de contas eletrônicas do
-                                TCM-PA.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <ion-list id="menu-list2" data-componentid="list2">
-                    <ion-item class="item-icon-left" id="menu-list-item10" ui-sref="main" menu-close="" data-componentid="list-item10">
-                        <i class="icon ion-android-home"></i>Início</ion-item>
-                    <ion-item class="item-icon-left" id="menu-list-item12" ui-sref="tabsController.notificacoes" menu-close="" data-componentid="list-item12">
-                        <i class="icon ion-android-notifications"></i>Notificações</ion-item>
-                    <ion-item class="item-icon-left" id="menu-list-item13" ui-sref="tabsController.perfil" menu-close="" data-componentid="list-item13">
-                        <i class="icon ion-android-person"></i>Perfil</ion-item>
-                    <!--<ion-item class="item-icon-left" id="menu-list-item14" ui-sref="suporteAjuda" menu-close="" data-componentid="list-item14">
-                      <i class="icon ion-help-circled"></i>Suporte e Ajuda</ion-item>-->
-                </ion-list>
-            </ion-content>
-            <ion-footer-bar class="bar-stable" style="height: 70px;">
-                © 2016 TCM-PA.<br> Diretoria de Informática - DI. Todos os direitos reservados.
-            </ion-footer-bar>
-        </ion-side-menu>
     </ion-side-menus>
 </body>
 

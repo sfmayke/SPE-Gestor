@@ -17,11 +17,11 @@ angular.module('app.controllers', [])
                 //$scope.user.IMEI = 'e0e0bd0ef84f7d03';
                 //$scope.user.IMEI = '357798072306630';   
                 if (success != undefined) {                    
-                     window.plugins.OneSignal.getTags(function (tags) {
-                         if (!tags){
-                             window.plugins.OneSignal.sendTag("Controladoria", $scope.user['COD_SETOR']);
-                         } 
-                     });
+                    // window.plugins.OneSignal.getTags(function (tags) {
+                    //     if (!tags){
+                    //         window.plugins.OneSignal.sendTag("Controladoria", $scope.user['COD_SETOR']);
+                    //     } 
+                    // });
                     ListaFactory.getLista().then(function (success) {
                         $scope.exercicio.lista = ExercicioService.getObject();
                         $scope.funcao($scope.date.toString());
@@ -39,6 +39,22 @@ angular.module('app.controllers', [])
                     $ionicLoading.hide();
                 });
             }
+
+            var swiper = new Swiper('.swiper-container', {
+                pagination: '.swiper-pagination',
+                
+                effect: 'coverflow',
+                initialSlide: 1,
+                paginationClickable: true,
+                coverflow: {
+                    rotate: 0,
+                    stretch: 0,
+                    depth: 0,
+                    modifier: 1,
+                    slideShadows: false
+                }
+            });
+            
         }])
 
     .controller('perfilCtrl', ['$scope', '$stateParams', 'UsuarioService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
