@@ -1,22 +1,20 @@
 angular.module('app.controllers', [])
 
-    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', 'CompetenciaFactory', 'UsuarioService', 'ExercicioService', 'ListaService', '$ionicHistory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', 'CompetenciaFactory', 'UsuarioService', 'ExercicioService', 'ListaService', '$ionicHistory', 'NotificacaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService, $ionicHistory) {
-            ionic.Platform.ready(function () {
-                //$scope.uuid = window.device.uuid;
-            })
+        function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService, $ionicHistory, NotificacaoFactory) {
             $ionicHistory.clearHistory();
+            geraslider.slide();
             $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
             $scope.date = new Date().getUTCFullYear();
             $scope.exercicio = {}
 
             UsuarioFactory.getUsuario('357798072306630').then(function (success) {
-                $scope.user = UsuarioService.getObject();                
+                $scope.user = UsuarioService.getObject();
                 //$scope.user.IMEI = 'e0e0bd0ef84f7d03';
                 //$scope.user.IMEI = '357798072306630';   
-                if (success != undefined) {                    
+                if (success != undefined) {
                     // window.plugins.OneSignal.getTags(function (tags) {
                     //     if (!tags){
                     //         window.plugins.OneSignal.sendTag("Controladoria", $scope.user['COD_SETOR']);
@@ -24,9 +22,11 @@ angular.module('app.controllers', [])
                     // });
                     ListaFactory.getLista().then(function (success) {
                         $scope.exercicio.lista = ExercicioService.getObject();
-                        $scope.funcao($scope.date.toString());
-                        $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
-                        $ionicLoading.hide();
+                        NotificacaoFactory.getNotificacao(UsuarioService.getObject()).then(function (success) {
+                            $scope.notificacoes = success
+                            $scope.funcao($scope.date.toString());
+                            $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
+                        })
                     });
                 }
             });
@@ -39,22 +39,6 @@ angular.module('app.controllers', [])
                     $ionicLoading.hide();
                 });
             }
-
-            var swiper = new Swiper('.swiper-container', {
-                pagination: '.swiper-pagination',
-                
-                effect: 'coverflow',
-                initialSlide: 1,
-                paginationClickable: true,
-                coverflow: {
-                    rotate: 0,
-                    stretch: 0,
-                    depth: 0,
-                    modifier: 1,
-                    slideShadows: false
-                }
-            });
-            
         }])
 
     .controller('perfilCtrl', ['$scope', '$stateParams', 'UsuarioService', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -71,10 +55,8 @@ angular.module('app.controllers', [])
     .controller('notificacoesCtrl', ['$scope', '$stateParams', '$ionicSlideBoxDelegate', 'NotificacaoFactory', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicSlideBoxDelegate, NotificacaoFactory) {           
-            NotificacaoFactory.getNotificacao().then(function(success){
-                $scope.notificacoes = success                
-            })
+        function ($scope, $stateParams, $ionicSlideBoxDelegate, NotificacaoFactory) {
+
         }])
 
     .controller('menuCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
