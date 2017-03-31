@@ -5,14 +5,15 @@
                 <ion-header-bar class="bar-assertive">
                     <div class="title" style="text-align: center">Notificações</div>
                 </ion-header-bar>
-                <ion-content>
+                <ion-content padding="false">
+                    <ion-refresher on-refresh="carregaNotificacoes(true)"></ion-refresher>                    
                     <div class="list" style="text-align:left" ng-repeat="notif in notificacoes">
                         <div class="item item-divider">
                             {{notif[0].DATA_NOTIFICACAO}}
                         </div>
-                        <a class="item" href="#" ng-repeat="registro in notif">
+                        <label class="item" ng-repeat="registro in notif">
                             {{registro.ORGAO}} ({{registro.MUNICIPIO}}) entregou {{registro.COMPETENCIA}} referente ao exercício de {{registro.ANO}}
-                        </a>
+                        </label>
                     </div>
                 </ion-content>
             </ion-view>
@@ -22,7 +23,7 @@
                 <ion-header-bar class="bar-assertive">
                     <div class="title" style="text-align: center">SPE-GESTOR</div>
                 </ion-header-bar>
-                <ion-content padding="false">
+                <ion-content padding="false">                    
                     <div class="row">
                         <div class="col">
                             <div id="menu-markdown1" style="text-align:justify;" class="show-list-numbers-and-dots" data-componentid="markdown1">
@@ -68,7 +69,7 @@
                 <ion-header-bar class="bar-assertive">
                     <div class="title" style="text-align: center">Perfil</div>
                 </ion-header-bar>
-                <ion-content padding="false">
+                <ion-content padding="false">                
                     <div class="row">
                         <div class="col">
                             <img src="img/perfil.png">

@@ -15,21 +15,28 @@ angular.module('app.controllers', [])
                 //$scope.user.IMEI = 'e0e0bd0ef84f7d03';
                 //$scope.user.IMEI = '357798072306630';   
                 if (success != undefined) {
-                    // window.plugins.OneSignal.getTags(function (tags) {
-                    //     if (!tags){
-                    //         window.plugins.OneSignal.sendTag("Controladoria", $scope.user['COD_SETOR']);
-                    //     } 
-                    // });
+                    //  window.plugins.OneSignal.getTags(function (tags) {
+                    //      if (!tags) {
+                    //          window.plugins.OneSignal.sendTag("Controladoria", $scope.user['COD_SETOR']);
+                    //      }
+                    //  });
                     ListaFactory.getLista().then(function (success) {
                         $scope.exercicio.lista = ExercicioService.getObject();
-                        NotificacaoFactory.getNotificacao(UsuarioService.getObject()).then(function (success) {
-                            $scope.notificacoes = success
-                            $scope.funcao($scope.date.toString());
-                            $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
-                        })
+                        $scope.carregaNotificacoes(false);
                     });
                 }
             });
+            $scope.carregaNotificacoes = function (botao) {                
+                NotificacaoFactory.getNotificacao(UsuarioService.getObject()).then(function (success) {
+                    $scope.notificacoes = success
+                    if(!botao){
+                        $scope.funcao($scope.date.toString());
+                        $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
+                    }else{
+                        $scope.$broadcast('scroll.refreshComplete');
+                    }
+                })
+            }
             $scope.funcao = function (ano) {
                 $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
                 ExercicioService.setSelectedAno(ano);

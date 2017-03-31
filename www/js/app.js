@@ -14,10 +14,12 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.directives
 
 })
 
-.run(function($ionicPlatform, $ionicPopup) {
+.run(function($ionicPlatform, $ionicPopup, $state) {
   $ionicPlatform.ready(function() {
     var notificationOpenedCallback = function(jsonData) {
-      
+      $state.go('main').then(function(success){
+        swiper.slideTo(0);
+      });
     };
 
     window.plugins.OneSignal
