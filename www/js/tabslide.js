@@ -1,8 +1,9 @@
+var swiper = null;
 var geraslider = (function () {
     "use strict";
     return {
-        slide: (function (data1, data2) {
-            var swiper = new Swiper('.swiper-container', {
+        slide: (function () {
+            swiper = new Swiper('.swiper-container', {
                 pagination: '.swiper-pagination',
 
                 effect: 'coverflow',
