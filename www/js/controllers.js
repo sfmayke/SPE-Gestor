@@ -79,13 +79,18 @@ angular.module('app.controllers', [])
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, $state, $ionicHistory, $window, $ionicPopup) {
 
-            $scope.loginEmail = function (email, senha) {
-
+            console.log(window.localStorage.getItem("email"));
+            $scope.loginEmail = function (email, senha) 
+            {
                 firebase.auth().signInWithEmailAndPassword(email, senha)
                     .then(function (success) {
                         $ionicHistory.nextViewOptions({
                             disableBack: true
                         });
+
+                        window.localStorage.setItem("email", email);
+                        window.localStorage.setItem("senha", senha);
+                        console.log(window.localStorage.getItem("email"));
 
                         $state.go('main')
                     }).then(function (fail) { $scope.errorLogin = "Email e/ou Senha incorretos." })
@@ -105,6 +110,19 @@ angular.module('app.controllers', [])
                         console.log(errorCode);
                         var errorMessage = error.message;
                     });
+                        
+                if(window.localStorage.getItem("email") != undefined)
+                {
+                    firebase.auth().signInWithEmailAndPassword(window.localStorage.getItem("email"), window.localStorage.getItem("senha"))
+                    .then(function (success) {
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true
+                        });
+                        $state.go('main')
+                    }).then(function (fail) { $state.go('login') })
+                }
+            // $scope.loginEmail()
+
 
                 // ref.authWithPassword({
                 //     email: email,
