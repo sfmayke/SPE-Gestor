@@ -2,8 +2,10 @@
     <div class="swiper-wrapper">
         <div class="swiper-slide">
             <ion-view title="Notificações" id="page3">
-                <ion-header-bar class="bar-assertive">
+                <ion-header-bar class="bar-assertive">                    
+                    <div class="title" hidden="hidden" style="text-align: left"><i hidden="hidden" class="icon ion-android-arrow-back"></i></div>
                     <div class="title" style="text-align: center">Notificações</div>
+                    <div class="title" style="text-align: right"><i class="icon ion-android-arrow-forward"></i></div>
                 </ion-header-bar>
                 <ion-content padding="false">
                     <ion-refresher on-refresh="carregaNotificacoes(true)"></ion-refresher>
@@ -21,7 +23,9 @@
         <div class="swiper-slide">
             <ion-view title="SPE GESTOR" id="page2">
                 <ion-header-bar class="bar-assertive">
+                    <div class="title" style="text-align: left"><i class="icon ion-android-arrow-back"></i></div>
                     <div class="title" style="text-align: center">SPE-GESTOR</div>
+                    <div class="title" style="text-align: right"><i class="icon ion-android-arrow-forward"></i></div>
                 </ion-header-bar>
                 <ion-content padding="false">
                     <div class="row">
@@ -67,6 +71,7 @@
         <div class="swiper-slide">
             <ion-view title="Perfil" id="page6">
                 <ion-header-bar class="bar-assertive">
+                    <div class="title" style="text-align: left"><i class="icon ion-android-arrow-back"></i></div>
                     <div class="title" style="text-align: center">Perfil</div>
                 </ion-header-bar>
                 <ion-content padding="false">
