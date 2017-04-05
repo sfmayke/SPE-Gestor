@@ -1,10 +1,22 @@
 angular.module('app.controllers', [])
 
-    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', 'CompetenciaFactory', 'UsuarioService', 'ExercicioService', 'ListaService', '$ionicHistory', 'NotificacaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', 'CompetenciaFactory', 'UsuarioService', 'ExercicioService', 'ListaService', '$ionicHistory', 'NotificacaoFactory', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService, $ionicHistory, NotificacaoFactory) {
+        function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService, $ionicHistory, NotificacaoFactory, $state) {
             $ionicHistory.clearHistory();
+            $scope.tentaAutenticar = function () {
+                if (window.localStorage.getItem('lastLogin') != data.getDataAtual()) {
+                    firebase.auth().signInWithEmailAndPassword(email, senha)
+                        .catch(function (error) {
+                            $ionicPopup.alert({
+                                template: 'Email ou Senha Inválidos.'
+                            });
+                            $state.go('login');
+                        })
+                }
+            }
+            $scope.tentaAutenticar();
             geraslider.slide();
             $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Buscando Usuário</div></div>' });
             $scope.date = new Date().getUTCFullYear();
@@ -28,18 +40,20 @@ angular.module('app.controllers', [])
                     });
                 }
             });
-            $scope.carregaNotificacoes = function (botao) {                
+            $scope.carregaNotificacoes = function (botao) {
+                $scope.tentaAutenticar();
                 NotificacaoFactory.getNotificacao(UsuarioService.getObject()).then(function (success) {
                     $scope.notificacoes = success
-                    if(!botao){
+                    if (!botao) {
                         $scope.funcao($scope.date.toString());
                         $scope.exercicio.opcoes = ExercicioService.getSelectedAno();
-                    }else{
+                    } else {
                         $scope.$broadcast('scroll.refreshComplete');
                     }
                 })
             }
             $scope.funcao = function (ano) {
+                $scope.tentaAutenticar();
                 $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Listando Competências</div></div>' });
                 ExercicioService.setSelectedAno(ano);
                 CompetenciaFactory.getCompetencia(ExercicioService.getSelectedAno()).then(function (success) {
@@ -47,6 +61,10 @@ angular.module('app.controllers', [])
                     $scope.competencia = ListaService.getObject();
                     $ionicLoading.hide();
                 });
+            }
+            $scope.sair = function () {
+                window.localStorage.clear();
+                $state.go('login');
             }
         }])
 
@@ -80,9 +98,8 @@ angular.module('app.controllers', [])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, $state, $ionicHistory, $window, $ionicPopup, $ionicLoading) {
-            //window.localStorage.clear();
-            $scope.loginEmail = function (email, senha) 
-            {
+            //window.localStorage.clear();            
+            $scope.loginEmail = function (email, senha) {
                 $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Tentando autenticar</div></div>' });
                 firebase.auth().signInWithEmailAndPassword(email, senha)
                     .then(function (success) {
@@ -91,8 +108,8 @@ angular.module('app.controllers', [])
                         });
 
                         window.localStorage.setItem("email", email);
-                        window.localStorage.setItem("senha", senha);                 
-
+                        window.localStorage.setItem("senha", senha);
+                        window.localStorage.setItem("lastLogin", data.getDataAtual())
                         $state.go('main')
                     }).then(function (fail) { $scope.errorLogin = "Email e/ou Senha incorretos." })
                     .catch(function (error) {
@@ -100,19 +117,18 @@ angular.module('app.controllers', [])
                         $ionicPopup.alert({
                             template: 'Email ou Senha Inválidos.'
                         });
-                    });                                                 
+                    });
             };
-            if(window.localStorage.getItem("email") != null)        
-                {
-                    $scope.loginEmail(window.localStorage.getItem("email"), window.localStorage.getItem("senha"));
-                    // firebase.auth().signInWithEmailAndPassword(window.localStorage.getItem("email"), window.localStorage.getItem("senha"))
-                    // .then(function (success) {
-                    //     $ionicHistory.nextViewOptions({
-                    //         disableBack: true
-                    //     });
-                    //     $state.go('main')
-                    // }).then(function (fail) { $state.go('login') })
-                } 
+            if (window.localStorage.getItem("email") != null) {
+                $scope.loginEmail(window.localStorage.getItem("email"), window.localStorage.getItem("senha"));
+                // firebase.auth().signInWithEmailAndPassword(window.localStorage.getItem("email"), window.localStorage.getItem("senha"))
+                // .then(function (success) {
+                //     $ionicHistory.nextViewOptions({
+                //         disableBack: true
+                //     });
+                //     $state.go('main')
+                // }).then(function (fail) { $state.go('login') })
+            }
         }])
 
     .controller('suporteAjudaCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -123,10 +139,19 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('quadrimestre1Ctrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('quadrimestre1Ctrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory', '$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
+        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory, $ionicPopup) {
+            if (window.localStorage.getItem('lastLogin') != data.getDataAtual()) {
+                firebase.auth().signInWithEmailAndPassword(email, senha)
+                    .catch(function (error) {
+                        $ionicPopup.alert({
+                            template: 'Email ou Senha Inválidos.'
+                        });
+                        $state.go('login');
+                    })
+            }
             $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('1')
                 .then(function (success) {
@@ -140,10 +165,19 @@ angular.module('app.controllers', [])
                 });
         }])
 
-    .controller('quadrimestre2Ctrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('quadrimestre2Ctrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory', '$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
+        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory, $ionicPopup) {
+            if (window.localStorage.getItem('lastLogin') != data.getDataAtual()) {
+                firebase.auth().signInWithEmailAndPassword(email, senha)
+                    .catch(function (error) {
+                        $ionicPopup.alert({
+                            template: 'Email ou Senha Inválidos.'
+                        });
+                        $state.go('login');
+                    })
+            }
             $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('2')
                 .then(function (success) {
@@ -157,10 +191,19 @@ angular.module('app.controllers', [])
                 });
         }])
 
-    .controller('quadrimestre3Ctrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('quadrimestre3Ctrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory', '$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
+        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory, $ionicPopup) {
+            if (window.localStorage.getItem('lastLogin') != data.getDataAtual()) {
+                firebase.auth().signInWithEmailAndPassword(email, senha)
+                    .catch(function (error) {
+                        $ionicPopup.alert({
+                            template: 'Email ou Senha Inválidos.'
+                        });
+                        $state.go('login');
+                    })
+            }
             $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('3')
                 .then(function (success) {
@@ -174,10 +217,19 @@ angular.module('app.controllers', [])
                 });
         }])
 
-    .controller('lOACtrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('lOACtrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory', '$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
+        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory, $ionicPopup) {
+            if (window.localStorage.getItem('lastLogin') != data.getDataAtual()) {
+                firebase.auth().signInWithEmailAndPassword(email, senha)
+                    .catch(function (error) {
+                        $ionicPopup.alert({
+                            template: 'Email ou Senha Inválidos.'
+                        });
+                        $state.go('login');
+                    })
+            }
             $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('901')
                 .then(function (success) {
@@ -191,10 +243,19 @@ angular.module('app.controllers', [])
                 });
         }])
 
-    .controller('balancoGeralCtrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('balancoGeralCtrl', ['$scope', '$stateParams', 'ExercicioService', 'UsuarioService', '$http', '$ionicLoading', '$state', 'MunicipiosService', 'OrgaoFactory', '$ionicPopup',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
+        function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory, $ionicPopup) {
+            if (window.localStorage.getItem('lastLogin') != data.getDataAtual()) {
+                firebase.auth().signInWithEmailAndPassword(email, senha)
+                    .catch(function (error) {
+                        $ionicPopup.alert({
+                            template: 'Email ou Senha Inválidos.'
+                        });
+                        $state.go('login');
+                    })
+            }
             $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('999')
                 .then(function (success) {
