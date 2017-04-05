@@ -6,7 +6,7 @@
                     <div class="title" style="text-align: center">Notificações</div>
                 </ion-header-bar>
                 <ion-content padding="false">
-                    <ion-refresher on-refresh="carregaNotificacoes(true)"></ion-refresher>                    
+                    <ion-refresher on-refresh="carregaNotificacoes(true)"></ion-refresher>
                     <div class="list" style="text-align:left" ng-repeat="notif in notificacoes">
                         <div class="item item-divider">
                             {{notif[0].DATA_NOTIFICACAO}}
@@ -23,7 +23,7 @@
                 <ion-header-bar class="bar-assertive">
                     <div class="title" style="text-align: center">SPE-GESTOR</div>
                 </ion-header-bar>
-                <ion-content padding="false">                    
+                <ion-content padding="false">
                     <div class="row">
                         <div class="col">
                             <div id="menu-markdown1" style="text-align:justify;" class="show-list-numbers-and-dots" data-componentid="markdown1">
@@ -69,7 +69,7 @@
                 <ion-header-bar class="bar-assertive">
                     <div class="title" style="text-align: center">Perfil</div>
                 </ion-header-bar>
-                <ion-content padding="false">                
+                <ion-content padding="false">
                     <div class="row">
                         <div class="col">
                             <img src="img/perfil.png">
@@ -103,6 +103,13 @@
                                     </ul>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button class="button button-block button-assertive">
+                                Sair
+                            </button>
                         </div>
                     </div>
                 </ion-content>
