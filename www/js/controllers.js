@@ -1,9 +1,9 @@
 angular.module('app.controllers', [])
 
-    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', 'CompetenciaFactory', 'UsuarioService', 'ExercicioService', 'ListaService', '$ionicHistory', 'NotificacaoFactory',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('mainCtrl', ['$scope', '$stateParams', '$ionicPopup', '$ionicLoading', 'UsuarioFactory', 'ListaFactory', 'CompetenciaFactory', 'UsuarioService', 'ExercicioService', 'ListaService', '$ionicHistory', 'NotificacaoFactory', '$state',// The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService, $ionicHistory, NotificacaoFactory) {
+        function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService, $ionicHistory, NotificacaoFactory, $state) {
             $ionicHistory.clearHistory();
             geraslider.slide();
             $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Buscando Usuário</div></div>' });
@@ -47,6 +47,10 @@ angular.module('app.controllers', [])
                     $scope.competencia = ListaService.getObject();
                     $ionicLoading.hide();
                 });
+            }
+            $scope.sair = function(){
+                window.localStorage.clear();
+                $state.go('login');
             }
         }])
 
