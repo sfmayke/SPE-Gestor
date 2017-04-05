@@ -6,7 +6,7 @@ angular.module('app.controllers', [])
         function ($scope, $stateParams, $ionicPopup, $ionicLoading, UsuarioFactory, ListaFactory, CompetenciaFactory, UsuarioService, ExercicioService, ListaService, $ionicHistory, NotificacaoFactory) {
             $ionicHistory.clearHistory();
             geraslider.slide();
-            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+            $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Buscando Usuário</div></div>' });
             $scope.date = new Date().getUTCFullYear();
             $scope.exercicio = {}
 
@@ -20,7 +20,9 @@ angular.module('app.controllers', [])
                     //          window.plugins.OneSignal.sendTag("Controladoria", $scope.user['COD_SETOR']);
                     //      }
                     //  });
+                    $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Procurando Exercícios</div></div>' });
                     ListaFactory.getLista().then(function (success) {
+                        $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Carregando Notificações</div></div>' });
                         $scope.exercicio.lista = ExercicioService.getObject();
                         $scope.carregaNotificacoes(false);
                     });
@@ -38,7 +40,7 @@ angular.module('app.controllers', [])
                 })
             }
             $scope.funcao = function (ano) {
-                $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+                $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Listando Competências</div></div>' });
                 ExercicioService.setSelectedAno(ano);
                 CompetenciaFactory.getCompetencia(ExercicioService.getSelectedAno()).then(function (success) {
                     ListaService.setObject(success);
@@ -74,14 +76,14 @@ angular.module('app.controllers', [])
 
         }])
 
-    .controller('loginCtrl', ['$scope', '$stateParams', '$state', '$ionicHistory', '$window', '$ionicPopup', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
+    .controller('loginCtrl', ['$scope', '$stateParams', '$state', '$ionicHistory', '$window', '$ionicPopup', '$ionicLoading', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
-        function ($scope, $stateParams, $state, $ionicHistory, $window, $ionicPopup) {
-
-            console.log(window.localStorage.getItem("email"));
+        function ($scope, $stateParams, $state, $ionicHistory, $window, $ionicPopup, $ionicLoading) {
+            //window.localStorage.clear();
             $scope.loginEmail = function (email, senha) 
             {
+                $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Tentando autenticar</div></div>' });
                 firebase.auth().signInWithEmailAndPassword(email, senha)
                     .then(function (success) {
                         $ionicHistory.nextViewOptions({
@@ -89,52 +91,28 @@ angular.module('app.controllers', [])
                         });
 
                         window.localStorage.setItem("email", email);
-                        window.localStorage.setItem("senha", senha);
-                        console.log(window.localStorage.getItem("email"));
+                        window.localStorage.setItem("senha", senha);                 
 
                         $state.go('main')
                     }).then(function (fail) { $scope.errorLogin = "Email e/ou Senha incorretos." })
                     .catch(function (error) {
                         // Handle Errors here.
-                        if (errorCode = "auth/wrong-password") {
-                            $ionicPopup.alert({
-                                template: 'Senha Incorreta.'
-                            });
-                        }
-                        else if (errorCode = "auth/user-not-found") {
-                            $ionicPopup.alert({
-                                template: 'Email não cadastrado.'
-                            });
-                        }
-                        var errorCode = error.code;
-                        console.log(errorCode);
-                        var errorMessage = error.message;
-                    });
-                        
-                if(window.localStorage.getItem("email") != undefined)
-                {
-                    firebase.auth().signInWithEmailAndPassword(window.localStorage.getItem("email"), window.localStorage.getItem("senha"))
-                    .then(function (success) {
-                        $ionicHistory.nextViewOptions({
-                            disableBack: true
+                        $ionicPopup.alert({
+                            template: 'Email ou Senha Inválidos.'
                         });
-                        $state.go('main')
-                    }).then(function (fail) { $state.go('login') })
-                }
-            // $scope.loginEmail()
-
-
-                // ref.authWithPassword({
-                //     email: email,
-                //     password: senha
-                // }, function (error, authData) {
-                //     if (error) {
-                //         console.log("Login Failed!", error);
-                //     } else {
-                //         console.log("Authenticated successfully with payload:", authData);
-                //     }
-                // });
+                    });                                                 
             };
+            if(window.localStorage.getItem("email") != null)        
+                {
+                    $scope.loginEmail(window.localStorage.getItem("email"), window.localStorage.getItem("senha"));
+                    // firebase.auth().signInWithEmailAndPassword(window.localStorage.getItem("email"), window.localStorage.getItem("senha"))
+                    // .then(function (success) {
+                    //     $ionicHistory.nextViewOptions({
+                    //         disableBack: true
+                    //     });
+                    //     $state.go('main')
+                    // }).then(function (fail) { $state.go('login') })
+                } 
         }])
 
     .controller('suporteAjudaCtrl', ['$scope', '$stateParams', // The following is the constructor function for this page's controller. See https://docs.angularjs.org/guide/controller
@@ -149,7 +127,7 @@ angular.module('app.controllers', [])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
-            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+            $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('1')
                 .then(function (success) {
                     $ionicLoading.hide();
@@ -166,7 +144,7 @@ angular.module('app.controllers', [])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
-            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+            $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('2')
                 .then(function (success) {
                     $ionicLoading.hide();
@@ -183,7 +161,7 @@ angular.module('app.controllers', [])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
-            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+            $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('3')
                 .then(function (success) {
                     $ionicLoading.hide();
@@ -200,7 +178,7 @@ angular.module('app.controllers', [])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
-            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+            $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('901')
                 .then(function (success) {
                     $ionicLoading.hide();
@@ -217,7 +195,7 @@ angular.module('app.controllers', [])
         // You can include any angular dependencies as parameters for this function
         // TIP: Access Route Parameters for your page via $stateParams.parameterName
         function ($scope, $stateParams, ExercicioService, UsuarioService, $http, $ionicLoading, $state, MunicipiosService, OrgaoFactory) {
-            $ionicLoading.show({ template: '<ion-spinner icon="lines"></ion-spinner>' });
+            $ionicLoading.show({ template: '<div class="row"><div class="col col-20"><ion-spinner icon="crescent"></ion-spinner></div><div class="col col-80"><p></p> Montando Gráfico</div></div>' });
             OrgaoFactory.getOrgao('999')
                 .then(function (success) {
                     $ionicLoading.hide();
